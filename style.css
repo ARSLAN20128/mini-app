@@ -30,13 +30,13 @@
 }
 
 .card-price {
-    color: green;
+    color: rgb(255, 0, 0);
 }
 .buy-button {
     border: none;
     padding:10px 20px ;
     cursor: pointer;
-    background-color: green;
+    background-color: rgb(24, 255, 3);
     color: white;
 }
 
