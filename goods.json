@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "name": "товар 1",
+    "description": "none",
+    "price": "1",
+    "amout": "100000000",
+    "image_url": "https://forum-ru-cdn.warthunder.com/original/3X/2/5/25b1dfd66584985a7fb36a6c05bfaa8f14287e08.jpeg"
+  },
+  {
+    "id": "2",
+    "name": "товар2",
+    "description": "none",
+    "price": "1",
+    "amout": "1000000000",
+    "image_url": "https://static.wikia.nocookie.net/d5f861d7-62ed-4ba2-98eb-8c53e422aa36/scale-to-width/755"
+  },
+  {
+    "id": "3",
+    "name": "товар3",
+    "description": "none",
+    "price": "1",
+    "amout": "1",
+    "image_url": "https://i.mycdn.me/getVideoPreview?id=1787216464546&idx=4&type=39&tkn=574wKwErvg3v-KbSr7jZJtHxzP8&fn=vid_w"
+  }
+]
