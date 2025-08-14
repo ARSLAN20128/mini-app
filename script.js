@@ -3,8 +3,10 @@ const container = document.querySelector('.card-list')
 container.innerHTML = ''
 
 const productTemplate = (product) => `
-<div class="card">
-            <img  class="card-img" src="${product.image_url}" alt="">
+        <div class="card">
+            <a href="./product/product.html?id=${product.id}">
+                <img  class="card-img" src="${product.image_url}" alt="картинка">
+            </a>
             <div class="card-content">
                 <div class="card-content-description">
                     <h2 class="card-price">${product.price}</h2>
@@ -15,14 +17,14 @@ const productTemplate = (product) => `
         </div>
 `
 
-const response = await fetch ('./goods.json')
+const response = await fetch('./goods.json')
 
-if  (!response.ok) throm new Error('ашибка зогрузки таворов -как и это сообщение-')
- 
+if (!response.ok) throw new Error('ашибка зогрузки таворов -как и это сообщение-')
+
 const goods = await response.json()
 
 goods.forEach(product => {
-    container.insertAdjacentElement('beforeend', productTemplate(product))
+    container.insertAdjacentHTML('beforeend', productTemplate(product))
 });
 
 
