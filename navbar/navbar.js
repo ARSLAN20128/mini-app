@@ -34,7 +34,7 @@ const loadNavBar = () => {
                 return res.text()
             })
             .then(html => {
-                document.body.insertAdjacentElement('afterbegin',html)
+                document.body.insertAdjacentHTML('afterbegin',html)
             })
             .catch(err => {
                 currentAttempt++ 
