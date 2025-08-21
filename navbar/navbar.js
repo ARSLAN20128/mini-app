@@ -20,7 +20,7 @@ const loadingBootstrapCSS = () => {
 }
 
 const loadNavBar = () => {
-    const pathTOTry = [
+    const pathToTry = [
         './navbar/navbar.html',
         '../navbar/navbar.html'
     ]
