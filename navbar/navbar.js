@@ -21,15 +21,38 @@ const loadingBootstrapCSS = () => {
 }
 
 const loadNavBar = () => {
-    fetch('/navbar/navbar.html')
-    .then(res => res.text())
-    .then(html =>{
-        document.body.insertAdjacentHTML('afterbegin', html)
-    })
+    const pathTOTry = [
+        './navbar/navbar.html',
+        '../navbar/navbar.html'
+    ]
+
+    let currentAttempt = 0
+
+    const attemptFetch = () => {
+        fetch(pathTOTry[currentAttempt])
+            .then(res => {
+                if (!res.ok) throw new Error('Navbar not found')
+                return res.text()
+            })
+            .then(html => {
+            document.body.insertAdjacentElement('afterbegin',html)
+            })
+            .catch(err => {
+                currentAttempt++ 
+                if (currentAttempt < pathToTry.length) {
+                    attemptFetch()
+                } else {
+                    console.error('All attempts failed', err)
+                }
+            })
+    }
+
+    attemptFetch()
 }
 
-window.addEventListener('DOMContentLoaded', () =>{
+window.addEventListener('DOMContentLoaded', () => {
     loadingBootstrapCSS();
     loadingBootstrapJS();
     loadNavBar();
 })
+("Live Reload is not possible without a head or body tag" )
