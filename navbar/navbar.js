@@ -17,7 +17,6 @@ const loadingBootstrapCSS = () => {
     script.crossOrigin = 'anonymous'
     script.defer = true
     document.body.appendChild(script)
-
 }
 
 const loadNavBar = () => {
@@ -29,13 +28,13 @@ const loadNavBar = () => {
     let currentAttempt = 0
 
     const attemptFetch = () => {
-        fetch(pathTOTry[currentAttempt])
+        fetch(pathToTry[currentAttempt])
             .then(res => {
                 if (!res.ok) throw new Error('Navbar not found')
                 return res.text()
             })
             .then(html => {
-            document.body.insertAdjacentElement('afterbegin',html)
+                document.body.insertAdjacentElement('afterbegin',html)
             })
             .catch(err => {
                 currentAttempt++ 
@@ -55,4 +54,3 @@ window.addEventListener('DOMContentLoaded', () => {
     loadingBootstrapJS();
     loadNavBar();
 })
-("Live Reload is not possible without a head or body tag" )
