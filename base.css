@@ -1,0 +1,26 @@
+* {  
+    padding: 0px;
+    margin: 0px;
+}
+
+
+.buy-button {
+    border: none;
+    padding:10px 20px ;
+    cursor: pointer;
+    background-color: rgb(24, 255, 3);
+    color: white;
+}
+
+.icon-with-text {
+    display: inline;
+    flex-direction:column ;
+    align-items: center;
+    gap: 0.5px;
+    text-align: center;
+
+}
+
+.icon {
+    font-size: 14px ;
+}

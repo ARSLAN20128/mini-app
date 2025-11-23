@@ -1,7 +1,4 @@
-* {  
-    padding: 0px;
-    margin: 0px;
-}
+
 
 .card-list .card-img {
     width: 350px;
@@ -15,7 +12,7 @@
 }
 
 .card-list .card {
-    margin:10px
+    margin:10px;
     border: none
 }
 
@@ -33,13 +30,7 @@
 .card-price {
     color: rgb(255, 0, 0);
 }
-.buy-button {
-    border: none;
-    padding:10px 20px ;
-    cursor: pointer;
-    background-color: rgb(24, 255, 3);
-    color: white;
-}
+
 
 .title{
     margin:20px 10px;
