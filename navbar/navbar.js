@@ -1,7 +1,7 @@
-import { loadTelegramJS,initializePreloader } from "../telegram.js"
+import { loadTelegramJS, initializePreloader } from "../telegram.js"
 
- // Загрузка Bootstrap css
-const loadingBootstrapCSS = () => {
+// Загрузка Bootstrap CSS
+const loadBootstrapCSS = () => {
     const link = document.createElement('link')
     link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css'
     link.rel = 'stylesheet'
@@ -10,11 +10,11 @@ const loadingBootstrapCSS = () => {
     document.head.insertBefore(link, document.head.firstChild)
 }
 
- // ЗАГРУЗКА Bootstrap js
- const loadingBootstrapJS = () => {
+// Загрузка Bootstrap JS
+const loadBootstrapJS = () => {
     const script = document.createElement('script')
-    script.src= 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js'
-    script.integrity = 'sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q'
+    script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js'
+    script.integrity = "sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
     script.crossOrigin = 'anonymous'
     script.defer = true
     document.body.appendChild(script)
@@ -35,10 +35,10 @@ const loadNavBar = () => {
                 return res.text()
             })
             .then(html => {
-                document.body.insertAdjacentHTML('afterbegin',html)
+                document.body.insertAdjacentHTML('afterbegin', html)
             })
             .catch(err => {
-                currentAttempt++ 
+                currentAttempt++
                 if (currentAttempt < pathToTry.length) {
                     attemptFetch()
                 } else {
@@ -50,10 +50,49 @@ const loadNavBar = () => {
     attemptFetch()
 }
 
-window.addEventListener('DOMContentLoaded',async () => {
-     await initializePreloader();
+
+const loadScript = () => {
+    const pathToTry = [
+        './buy-button/buy-button.js',
+        '../buy-button/buy-button.js'
+    ]
+
+    let currentAttempt = 0
+
+    const attemptFetch = () => {
+        fetch(pathToTry[currentAttempt])
+            .then(res => {
+                if (!res.ok) throw new Error('Script not found')
+            })
+            .then(r => {
+                const script = document.createElement('script');
+                script.src = pathToTry[currentAttempt];
+                script.defer = true;
+                script.type = 'module'
+                document.head.appendChild(script);
+            })
+            .catch(err => {
+                currentAttempt++
+                if (currentAttempt < pathToTry.length) {
+                    attemptFetch()
+                } else {
+                    console.error('All attempts failed', err)
+                }
+            })
+    }
+
+    attemptFetch()
+}
+
+window.addEventListener('DOMContentLoaded', async() => {
+    // Инициализируем прелоадер первым
+    await initializePreloader();
     loadTelegramJS();
-    loadingBootstrapCSS();
-    loadingBootstrapJS();
+    loadBootstrapCSS();
+    loadBootstrapJS();
     loadNavBar();
+})
+
+window.addEventListener('load', () => {
+    loadScript()
 })

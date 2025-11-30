@@ -1,5 +1,7 @@
 
-    export const loadTelegramJS = () => {
+import { showPreloader, hidePreloader, setPreloaderText, initializePreloader } from './preloader/preloader.js';
+
+export const loadTelegramJS = () => {
         const script = document.createElement('script')
         script.src = 'https://telegram.org/js/telegram-web-app.js'
         script.defer = true 
@@ -7,20 +9,18 @@
         script.onload = init
     }
 
+
 const init = () => {
-    const tg = window.Telegram?.webApp;
-    
-     
+    const tg = window.Telegram?.WebApp
+
     if (!tg) {
-        console.error('The TelegramJS was not uploaded')
-        return
+        console.error('The TelegramJS was not uploaded, but continuing...')
+        return;
     }
 
-    console.log('The TelegramJS was uploaded successfully') 
-    
-        
-    updateTheme(document.documentElement, tg)
+    console.log('The TelegramJS was uploaded successfully')
 
+    updateTheme(document.documentElement, tg)
     tg.onEvent('themeChanged', updateTheme)
 }
 
@@ -80,37 +80,40 @@ export const waitForTelegram = (callback, maxWaitTime = 5000) => {
         callback()
     }
     else {
-        const startTime = new Date.now();
+        const startTime = Date.now();
         const checkInterval = setInterval(() => {
             if (window.Telegram?.WebApp) {
                 clearInterval(checkInterval);
                 callback();
             }
-            else if (new Date.now() - startTime > maxWaitTime) {
+            else if (Date.now() - startTime > maxWaitTime) {
                 clearInterval(checkInterval);
                 console.log('Telegram WebApp not found within timeout period');
             }
         }, 100)    
     }
 }
-    export const waitForTelegramReady = (maxWaitTime = 5000) =>{
-        return new Promise((resolve) => {
-            const startTime = DataTransfer.now();
-            const telegramExists = typeof Telegram !== 'underfried' && Telegram && Teelegram.WebApp;
 
+// Функция для ожидания полной загрузки Telegram WebApp
+export const waitForTelegramReady = () => {
+    return new Promise((resolve) => {
+        const telegramExists = typeof Telegram !== 'undefined' && Telegram && Telegram.WebApp;
+
+        if (telegramExists && Telegram.WebApp.isExpanded !== undefined) {
+            console.log('Telegram WebApp already ready');
+            resolve();
+        } else {
             const checkReady = () => {
-                if (telegramExists && Telegram.WebApp.isExpanded ) {
-                    console.log('Telegram WebApp not ready within timeout period');
-                    resolve()
+                if (Telegram?.WebApp && Telegram.WebApp.isExpanded !== undefined) {
+                    console.log('Telegram WebApp is now ready');
+                    resolve();
+                } else {
+                    setTimeout(checkReady, 100);
                 }
-                else if (Date.now() - startTime > maxWaitTime) {
-                    console.error('Telegram WebApp not ready within timeout period');
-                    resolve()
-                }
-                else {
-                    setTimeout(checkReady, 100)
-                }
+            };
+            checkReady();
         }
-     checkReady()
-    })
-    }
+    });
+}
+
+export { showPreloader, hidePreloader, setPreloaderText, initializePreloader };

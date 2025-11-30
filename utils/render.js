@@ -51,7 +51,6 @@ export const render = async ({ source, container, template, options = {} }) => {
         const inserted = container.lastElementChild
 
         if (afterInsert && inserted) afterInsert(inserted, item)
-
     }
 
 }

@@ -4,11 +4,11 @@ export const loadCSSFromFile = (cssPaths) => {
 
   link.rel = "stylesheet";
 
- 
+
 
   let currentAttempt = 0;
 
- 
+
 
   const attemptCSS = () => {
 
@@ -38,13 +38,11 @@ export const loadCSSFromFile = (cssPaths) => {
 
   };
 
- 
-
   attemptCSS();
 
 };
 
- 
+
 
 /* Функция для загрузки HTML */
 
@@ -52,7 +50,7 @@ export const loadHTMLFromFile = async (htmlPaths) => {
 
   let currentAttempt = 0;
 
- 
+
 
   const attemptHTML = async () => {
 
@@ -62,7 +60,7 @@ export const loadHTMLFromFile = async (htmlPaths) => {
 
       if (!response.ok) throw new Error("Preloader HTML not found");
 
- 
+
 
       const html = await response.text();
 
@@ -88,15 +86,13 @@ export const loadHTMLFromFile = async (htmlPaths) => {
 
   };
 
- 
-
   await attemptHTML();
 
 };
 
- 
 
- 
+
+
 
 /** Функция для загрузки скрипта */
 
@@ -104,7 +100,7 @@ export const loadScriptFromFile = (scriptPaths) => {
 
   let currentAttempt = 0;
 
- 
+
 
   const attemptFetch = () => {
 
@@ -146,51 +142,46 @@ export const loadScriptFromFile = (scriptPaths) => {
 
   };
 
- 
+
 
   attemptFetch();
 
 };
 
 /**Функция для загрузки скрипта**/
+export const loadScript = () => {
+  const pathToTry = [
 
-const loadScript = () => { 
-const pathToTry = [
+    "./buy-button/buy-button.js",
 
-"./buy-button/buy-button.js",
+    "../buy-button/buy-button.js",
 
-"…/buy-button/buy-button.js",
-
-];
-
-
-let currentAttempt = 0;
+  ];
 
 
-const attemptFetch = () => {
-fetch(pathToTry[currentAttempt])
-  .then((res) => {
-    if (Ires.ok) throw new Error("Script not found");
-
-})
-
-.then((r) => {
-    const script = document.createElement("script");
-  script.src = pathToTry[currentAttempt];
-  script.defer = true;
-  document.head.appendChild(script);
-
-})
-
-.catch((err) => {
-
-currentAttempt++;
-
-if (cur:antAttempt < pathToTry.length) {
+  let currentAttempt = 0;
 
 
-attemptFetch();
+  const attemptFetch = () => {
+    fetch(pathToTry[currentAttempt])
+      .then((res) => {
+        if (res.ok) throw new Error("Script not found");
 
-} else {
+      })
+      .then((r) => {
+        const script = document.createElement("script");
+        script.src = pathToTry[currentAttempt];
+        script.defer = true;
+        document.head.appendChild(script);
+      })
+      .catch((err) => {
+        currentAttempt++;
+        if (antAttempt < pathToTry.length) {
+          attemptFetch();
+        } else {
+          console.error("All attempts failed", err);
+        }
+      })
 
-console.error("All attempts failed", err);
+  }
+}

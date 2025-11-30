@@ -1,4 +1,4 @@
-import { getUserData } from "../telegram"
+import { getUserData } from '../telegram.js';
 
 export const getQuantityInputHTML = (btnProductId, count = 1) => `
 
@@ -11,7 +11,8 @@ export const getQuantityInputHTML = (btnProductId, count = 1) => `
         <button class="btn btn-outline-secondary increase">+</button>
 
     </div>`
-    export const updateProductsFromStorage = async (id, isAdd) => {
+
+export const updateProductsFromStorage = async (id, isAdd) => {
     const user = await getUserData();
     const productListString = localStorage.getItem(user.id)
     const productList = productListString ? JSON.parse(productListString) : []
@@ -189,7 +190,7 @@ export const initializeBuyButtons = () => {
 
     getUserData().then(userData => {
 
- 
+        const user = userData;
 
         btnList.forEach(btn => {
 
